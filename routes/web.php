@@ -20,19 +20,16 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
 
 Route::get('/gyik', function () {
     return view('gyik');
-});
-
-Route::get('/aff', function () {
-    return view('aff');
-});
-
-
-Route::get('/dss', function () {
-    return view('dss');
 });
 
 Route::get('/create_book', function () {
