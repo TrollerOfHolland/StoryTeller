@@ -1,20 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-                <div class="card-body">
-                    @if (Route::has('register'))
-                        Sikeres regisztráció!
-                    @elseif (Route::has('login'))
-                        Sikeres bejelentkezés!
-                    @endif
-                </div>
-            </div>
-        </div>
+    <div class="bg-light p-5 rounded">
+        <h1>Sikeres bejelentkezés</h1>
+        <a class="btn btn-lg btn-primary" href="{{ url('/') }}" role="button"> Vissza a főoldalra &raquo; </a>
     </div>
-</div>
 @endsection

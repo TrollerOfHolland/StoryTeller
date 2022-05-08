@@ -20,12 +20,10 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/notice', function () {
+    return view('verification.notice');
 });
 
 Route::get('/gyik', function () {
@@ -35,3 +33,13 @@ Route::get('/gyik', function () {
 Route::get('/create_book', function () {
     return view('create_book');
 });
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/email/verify', '\App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', '\App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+    Route::post('/email/resend', '\App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+});
+Route::group(['middleware' => ['auth','verified']], function() {
+    Route::get('/dashboard', '\App\Http\Controllers\DashboardController@index');
+});
+

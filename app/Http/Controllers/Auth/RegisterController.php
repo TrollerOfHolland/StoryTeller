@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -24,12 +24,17 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    protected $redirectTo = '/notice';
+
     /**
-     * Where to redirect users after registration.
+     * Display register page.
      *
-     * @var string
+     * @return \Illuminate\Http\Response
      */
-    protected $redirectTo = 'dashboard';
+    public function show()
+    {
+        return view('auth.register');
+    }
 
     /**
      * Create a new controller instance.

@@ -26,7 +26,6 @@
             @if (Route::has('login'))
                 <div class="center links">
                     @auth
-                        <a href="{{ url('/home') }}">Főoldal</a>
                         <a href="{{ url('/home') }}">Könyveim</a>
                         <a href="{{ url('/create_book') }}">Könyv létrehozása</a>
                         <a href="{{ url('/logout') }}">Kijelentkezés</a>
