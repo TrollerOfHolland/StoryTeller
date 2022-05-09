@@ -26,6 +26,8 @@ Route::get('/notice', function () {
     return view('verification.notice');
 });
 
+
+
 Route::get('/gyik', function () {
     return view('gyik');
 });
