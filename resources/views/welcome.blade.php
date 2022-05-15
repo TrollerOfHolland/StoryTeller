@@ -29,13 +29,14 @@
             <div class="center links">
                 @auth
                 <div class="grid-container">
-                    <div class="grid-item"><a href="{{ url('/all_books') }}">Összes könyv</a></div>
-                    <div class="grid-item"><a href="{{ url('/my_books') }}">Könyveim</a></div>
-                    <div class="grid-item"><a href="{{ url('/create_book') }}">Könyv létrehozása</a></div>
+                    <div class="grid-item"><a href="{{ route('books.index') }}">Összes könyv</a></div>
+                    <div class="grid-item"><a href="{{ route('books.show', Auth::user()->id) }}">Könyveim</a></div>
+                    <div class="grid-item"><a href="{{ route('books.create') }}">Könyv létrehozása</a></div>
                     <div class="grid-item"><a href="{{ url('/all_stories') }}">Összes történet</a></div>
                     <div class="grid-item"><a href="{{ url('/my_stories') }}">Történeteim</a></div>
                     <div class="grid-item"><a href="{{ url('/create_story') }}">Történet létrehozása</a></div>
                     <div class="grid-item"><a class="logout" href="{{ url('/logout') }}">Kijelentkezés</a></div>
+
                 </div>
                 @else
                     <a href="{{ route('login') }}">Bejelentkezés</a>

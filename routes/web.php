@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,29 +37,26 @@ Route::get('/gyik', function () {
 |--------------------------------------------------------------------------
 |
 */
-Route::get('/create_book', function () {
-    return view('library.create_book');
-});
+Route::resource('books', BookController::class);
 
+Route::get('read', [BookController::class, 'read'])->name('books.read');
+
+/*
 Route::get('/create_story', function () {
     return view('library.create_story');
 });
 
-Route::get('/all_books', function () {
-    return view('library.all_books');
-});
+Route::get('all_books', [BookController::class, 'all_books'])->name('library.all_books');
+Route::get('my_books', [BookController::class, 'my_books'])->name('library.my_books');
+Route::get('create_book', [BookController::class, 'store'])->name('library.create_book');
 
 Route::get('/all_stories', function () {
     return view('library.all_stories');
 });
 
-Route::get('/my_books', function () {
-    return view('library.my_books');
-});
-
 Route::get('/my_stories', function () {
     return view('library.my_stories');
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------
