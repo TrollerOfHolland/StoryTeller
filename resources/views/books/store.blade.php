@@ -15,7 +15,7 @@
                                 @csrf
                                 <div class="mb-5">
                                     <label for="title" class="block text-lg font-medium text-gray-700">Könyv címe</label>
-                                    <input type="text" name="title" id="title" value="{{ old('title') }}"
+                                    <input type="text" name="title" id="title" value="{{ old('title') }}" style="width: 100%;"
                                         class="mt-2 focus:ring-blue-500 focus:border-blue-500 block shadow-sm sm:text-sm @error('title') border-red-400 @else border-gray-400 @enderror">
                                     @error('title')
                                         <p class="text-red-500">{{ $message }}</p>
@@ -24,7 +24,7 @@
 
                                 <div class="mb-5">
                                     <label for="author" class="block text-lg font-medium text-gray-700">Könyv szerzője</label>
-                                    <input type="text" name="author" id="author" value="{{ old('author') }}"
+                                    <input type="text" name="author" id="author" value="{{ old('author') }}" style="width: 100%;"
                                         class="mt-2 focus:ring-blue-500 focus:border-blue-500 block shadow-sm sm:text-sm @error('author') border-red-400 @else border-gray-400 @enderror">
                                     @error('author')
                                         <p class="text-red-500">{{ $message }}</p>
@@ -33,7 +33,7 @@
 
                                 <div class="mb-5">
                                     <label for="ageLimit" class="block text-lg font-medium text-gray-700">Korhatár</label>
-                                    <input type="number" name="ageLimit" id="ageLimit" min="1" value="{{ old('ageLimit') }}"
+                                    <input type="number" name="ageLimit" id="ageLimit" min="1" value="{{ old('ageLimit') }}" style="width: 20%;"
                                         class="mt-2 focus:ring-blue-500 focus:border-blue-500 block shadow-sm sm:text-sm @error('ageLimit') border-red-400 @else border-gray-400 @enderror">
                                     @error('ageLimit')
                                         <p class="text-red-500">{{ $message }}</p>
@@ -59,16 +59,16 @@
                                     </div>
                                 </div>
                                 <div class="mb-5">
-                                    <label for="coverPhoto" class="block  text-lg font-medium text-gray-700">Kép feltöltése a könyvhöz</label>
-                                    <input type="file" class="form-control-file" id="coverPhoto" name="coverPhoto">
+                                    <label for="coverPhoto" class="block  text-lg font-medium text-gray-700" style="width: 100%;">Kép feltöltése a könyvhöz</label>
+                                    <input type="file" class="form-control-file" id="coverPhoto" name="coverPhoto" title=" " style="width: 95px;" onchange="this.style.width = '100%';">
                                     @error('coverPhoto')
                                         <p class="text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="mb-5">
-                                    <label for="content" class="block  text-lg font-medium text-gray-700">Könyv tartalmának feltöltése</label>
-                                    <input type="file" class="form-control-file" id="content" name="content">
+                                    <label for="content" class="block  text-lg font-medium text-gray-700" style="width: 100%;">Könyv tartalmának feltöltése</label>
+                                    <input type="file" class="form-control-file" id="content" name="content" title=" " style="width: 95px;" onchange="this.style.width = '100%';">
                                     @error('content')
                                         <p class="text-red-500">{{ $message }}</p>
                                     @enderror

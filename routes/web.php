@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +39,12 @@ Route::get('/gyik', function () {
 |
 */
 Route::resource('books', BookController::class);
+Route::resource('ratings', RatingController::class);
 
-Route::get('read', [BookController::class, 'read'])->name('books.read');
+Route::get('read/{id}', [BookController::class, 'read'])->name('books.read');
+
+Route::get('download/{id}', [BookController::class, 'download'])->name('books.download');
+
 
 /*
 Route::get('/create_story', function () {

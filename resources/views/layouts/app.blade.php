@@ -24,19 +24,40 @@
         .logo {
             max-width: 40%;
         }
-
+        .links > a {
+                color: #636b6f;
+                padding: 0 10px;
+                font-size: 15px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
     </style>
 </head>
 
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <!-- Left side -->
             <ul class="nav navbar-nav">
-                <img src="{{ asset( 'images/logo.png' ) }}" alt="logó" class="logo">
+                <img src="{{ asset('images/logo.png') }}" alt="logó" class="logo">
             </ul>
+            @auth
+                <ul class="nav navbar-nav mx-auto" style="letter-spacing: .1rem">
+                    <li class="nav-item links"><a href="{{ route('books.index') }}">Összes könyv</a></li>
+                    <li class="nav-item links"><a href="{{ route('books.show', Auth::user()->id) }}">Könyveim</a></li>
+                    <li class="nav-item links"><a href="{{ route('books.create') }}">Könyv létrehozása</a></li>
+                    <li class="nav-item links"><a href="{{ route('books.index') }}">Összes történet</a></li>
+                    <li class="nav-item links"><a href="{{ route('books.index') }}">Történeteim</a></li>
+                    <li class="nav-item links"><a href="{{ route('books.index') }}">Történet létrehozása</a></li>
+                    <li class="nav-item links"><a href="{{ url('/logout') }}">Kijelentkezés</a></li>
+                </ul>
+            @endauth
+            <!-- Right side -->
             <ul class="nav navbar-nav ms-auto">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'StoryTeller') }}
+                    Vissza a Főoldalra
                 </a>
                 <!-- Authentication Links -->
                 @guest

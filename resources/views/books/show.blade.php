@@ -1,5 +1,20 @@
 @extends('layouts.app')
+<style>
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+    th {
+        text-align: center;
+    }
 
+    td {
+        width: 25%;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -10,13 +25,13 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Kép</th>
-                                    <th scope="col">Cím</th>
-                                    <th scope="col">Szerző</th>
-                                    <th scope="col">Korhatár</th>
-                                    <th scope="col">Kiállítás dátuma</th>
-                                    <th scope="col">Értékelés</th>
-                                    <th scope="col">Értékelések száma</th>
+                                    <th scope="col" class="text-center">Kép</th>
+                                    <th scope="col" class="text-center">Cím</th>
+                                    <th scope="col" class="text-center">Szerző</th>
+                                    <th scope="col" class="text-center">Korhatár</th>
+                                    <th scope="col" class="text-center">Kiállítás dátuma</th>
+                                    <th scope="col" class="text-center">Értékelés</th>
+                                    <th scope="col" class="text-center">Értékelések száma</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -24,15 +39,21 @@
                                 @foreach ($books as $book)
                                     <tr>
                                         <td><img src="{{ asset($book->coverPhoto ? 'storage/thumbnails/' . $book->coverPhoto : 'images/logo.png') }}"
-                                                class="min-h-48 h-48 max-h-48 object-cover">
+                                                style="max-width: 100%">
                                         </td>
                                         <td>{{ $book->title }}</td>
                                         <td>{{ $book->author }}</td>
                                         <td>{{ $book->ageLimit }}</td>
                                         <td>{{ $book->created_at }}</td>
-                                        <td>{{ $book->rating }}</td>
-                                        <td>{{ $book->numOfRates }}</td>
-                                        <td> <a href="{{ route('books.read', $book) }}"
+                                        @if (count($book->ratings) > 0)
+                                            <td>{{ floor($book->ratings->sum('rating') / count($book->ratings)) }} / 5</td>
+                                        @else
+                                            <td>
+                                                Nincs értékelve!
+                                            </td>
+                                        @endif
+                                        <td>{{ count($book->ratings) }}</td>
+                                        <td> <a href="{{ route('books.read', $book->id) }}"
                                                 class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Elolvas
                                                 <i class="fas fa-angle-right"></i>
                                             </a></td>

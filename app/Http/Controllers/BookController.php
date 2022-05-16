@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Session;
 
 class BookController extends Controller
 {
@@ -23,11 +24,12 @@ class BookController extends Controller
 
     public function show($id)
     {
-        $books = Book::where('author_id', $id)->get();
+        $books = User::find($id)->books;
         return view('books.show', compact('books'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('books.store');
     }
 
@@ -39,16 +41,27 @@ class BookController extends Controller
             'author' => 'required|max:128',
             'ageLimit' => 'required|min:1',
             'coverPhoto' => 'nullable|file|mimes:jpg,png|max:2048',
+            'content' => 'required|file|mimes:txt,pdf',
         ], [
-            'title.required' => 'A film cím megadása kötelező',
+            'title.required' => 'A könyv címének megadása kötelező',
+            'title.max' => 'A könyv címének hossza max 255 karakter lehet',
+            'author.required' => 'Az író nevének megadása kötelező',
+            'author.max' => 'Az író nevének hossza max 128 karakter lehet',
+            'ageLimit.required' => 'A korhatár megadása kötelező',
+            'ageLimit.min' => 'A korhatárnak legalább 1-nek kell lennie',
+            'coverPhoto.file' => 'Csak .png és .jpg állományt lehet feltölteni' ,
+            'coverPhoto.mimes' => 'Csak .png és .jpg állományt lehet feltölteni' ,
+            'coverPhoto.max' => 'A feltöltött kép max mérete 2MB lehet',
+            'content.required' => 'A könyv tartalmának megadása kötelező',
+            'content.file' => 'Csak .txt és .pdf állományt lehet feltölteni' ,
+            'content.mimes' => 'Csak .txt és .pdf állományt lehet feltölteni' ,
+
         ]);
 
         $data['disable_comments'] = false;
         if ($request->has('disable_comments')) {
             $data['disable_comments'] = true;
         }
-
-        $data['author_id'] = Auth::id();
 
         $data['disable_ratings'] = false;
         if ($request->has('disable_ratings')) {
@@ -68,12 +81,26 @@ class BookController extends Controller
         }
 
         $book = Book::create($data);
+        $book->save();
+        $book->owners()->attach(Auth::user());
         $request->session()->flash('book_created', true);
         return redirect()->route('books.index');
     }
 
-    public function read(Book $book) {
-
-        return view('books.read');
+    public function read($id)
+    {
+        $book = Book::find($id);
+        $type = mime_content_type('storage/contents/'. $book->content);
+        return view('books.read', compact('book', 'type'));
     }
+
+    public function download($id)
+    {
+        $book = Book::find($id);
+        if ($book === null || $book->content === null) {
+            return abort(404);
+        }
+        return Storage::disk('public')->download('contents/' . $book['content']);
+    }
+
 }

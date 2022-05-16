@@ -15,10 +15,18 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'author', 'coverPhoto', 'content','ageLimit', 'rating', 'numOfRates', 'author_id',
+        'title', 'author', 'coverPhoto', 'content','ageLimit', 'rating', 'numOfRates',
     ];
 
     public function owners() {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsToMany(User::class)->withTimestamps();;
+    }
+
+    public function ratings() {
+        return $this->hasMany(Rating::class, 'book_id');
+    }
+
+    public function comments() {
+        return $this->hasMany(Rating::class, 'book_id');
     }
 }

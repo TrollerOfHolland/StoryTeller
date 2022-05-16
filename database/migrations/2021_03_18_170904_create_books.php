@@ -21,13 +21,10 @@ class CreateBooks extends Migration
             $table->float('rating')->default(0);
             $table->integer('numOfRates')->default(0);
             $table->string('coverPhoto')->nullable();
-            $table->string('content')->nullable();
-            $table->unsignedBigInteger('author_id')->nullable();
+            $table->string('content');
             $table->boolean('disable_comments')->default(false);
             $table->boolean('disable_ratings')->default(false);
             $table->timestamps();
-
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
