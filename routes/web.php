@@ -4,15 +4,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\StoryController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Basic routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -34,34 +31,19 @@ Route::get('/gyik', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Library routes
+| Book & Story routes
 |--------------------------------------------------------------------------
 |
 */
 Route::resource('books', BookController::class);
 Route::resource('ratings', RatingController::class);
+Route::resource('stories', StoryController::class);
+
+Route::get('read/{id}', [StoryController::class, 'read'])->name('stories.read');
 
 Route::get('read/{id}', [BookController::class, 'read'])->name('books.read');
 
 Route::get('download/{id}', [BookController::class, 'download'])->name('books.download');
-
-
-/*
-Route::get('/create_story', function () {
-    return view('library.create_story');
-});
-
-Route::get('all_books', [BookController::class, 'all_books'])->name('library.all_books');
-Route::get('my_books', [BookController::class, 'my_books'])->name('library.my_books');
-Route::get('create_book', [BookController::class, 'store'])->name('library.create_book');
-
-Route::get('/all_stories', function () {
-    return view('library.all_stories');
-});
-
-Route::get('/my_stories', function () {
-    return view('library.my_stories');
-});*/
 
 /*
 |--------------------------------------------------------------------------

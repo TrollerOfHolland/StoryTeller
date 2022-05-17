@@ -3,39 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Models\Story;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class BookController extends Controller
+class StoryController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
+
     /**
-     * Displays all the books.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $books = Book::all();
-        return view('books.index', compact('books'));
+        $stories = Story::all();
+        return view('stories.index', compact('stories'));
     }
-    /**
-     * Displays all the owned books.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $books = User::find($id)->books;
-        return view('books.show', compact('books'));
-    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,8 +35,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.store');
+        return view('stories.store');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,13 +46,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:128',
             'ageLimit' => 'required|min:1',
             'coverPhoto' => 'nullable|file|mimes:jpg,png|max:2048',
-            'content' => 'required|file|mimes:txt,pdf',
         ], [
             'title.required' => 'A könyv címének megadása kötelező',
             'title.max' => 'A könyv címének hossza max 255 karakter lehet',
@@ -70,9 +61,6 @@ class BookController extends Controller
             'coverPhoto.file' => 'Csak .png és .jpg állományt lehet feltölteni' ,
             'coverPhoto.mimes' => 'Csak .png és .jpg állományt lehet feltölteni' ,
             'coverPhoto.max' => 'A feltöltött kép max mérete 2MB lehet',
-            'content.required' => 'A könyv tartalmának megadása kötelező',
-            'content.file' => 'Csak .txt és .pdf állományt lehet feltölteni' ,
-            'content.mimes' => 'Csak .txt és .pdf állományt lehet feltölteni' ,
 
         ]);
 
@@ -92,18 +80,59 @@ class BookController extends Controller
             Storage::disk('public')->put('thumbnails/' . $data['coverPhoto'], $file->get());
         }
 
-        if ($request->hasFile('content')) {
-            $file = $request->file('content');
-            $data['content'] = $file->hashName();
-            Storage::disk('public')->put('contents/' . $data['content'], $file->get());
-        }
-
-        $book = Book::create($data);
-        $book->save();
-        $book->owners()->attach(Auth::user());
-        $request->session()->flash('book_created', true);
-        return redirect()->route('books.index');
+        $story = Story::create($data);
+        $story->save();
+        $story->owners()->attach(Auth::user());
+        $request->session()->flash('story_created', true);
+        return view('stories.edit', compact('story'));
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $stories = User::find($id)->stories;
+        return view('stories.show', compact('stories'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+
+    }
+
     /**
      * Returns the view form for a specific book
      *
@@ -112,23 +141,6 @@ class BookController extends Controller
      */
     public function read($id)
     {
-        $book = Book::find($id);
-        $type = mime_content_type('storage/contents/'. $book->content);
-        return view('books.read', compact('book', 'type'));
-    }
-    /**
-     * Downloads the specific resource from the Storage
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function download($id)
-    {
-        $book = Book::find($id);
-        if ($book === null || $book->content === null) {
-            return abort(404);
-        }
-        return Storage::disk('public')->download('contents/' . $book['content']);
-    }
 
+    }
 }
