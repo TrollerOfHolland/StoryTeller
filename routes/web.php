@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\NodeController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\StoryController;
 
@@ -38,12 +39,15 @@ Route::get('/gyik', function () {
 Route::resource('books', BookController::class);
 Route::resource('ratings', RatingController::class);
 Route::resource('stories', StoryController::class);
+Route::resource('nodes', NodeController::class);
 
 Route::get('read/{id}', [StoryController::class, 'read'])->name('stories.read');
 
 Route::get('read/{id}', [BookController::class, 'read'])->name('books.read');
 
 Route::get('download/{id}', [BookController::class, 'download'])->name('books.download');
+
+Route::get('create/{id}', [NodeController::class, 'create'])->name('nodes.create');
 
 /*
 |--------------------------------------------------------------------------

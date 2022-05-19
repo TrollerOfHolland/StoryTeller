@@ -48,9 +48,9 @@
                     <li class="nav-item links"><a href="{{ route('books.index') }}">Összes könyv</a></li>
                     <li class="nav-item links"><a href="{{ route('books.show', Auth::user()->id) }}">Könyveim</a></li>
                     <li class="nav-item links"><a href="{{ route('books.create') }}">Könyv létrehozása</a></li>
-                    <li class="nav-item links"><a href="{{ route('books.index') }}">Összes történet</a></li>
-                    <li class="nav-item links"><a href="{{ route('books.index') }}">Történeteim</a></li>
-                    <li class="nav-item links"><a href="{{ route('books.index') }}">Történet létrehozása</a></li>
+                    <li class="nav-item links"><a href="{{ route('stories.index') }}">Összes történet</a></li>
+                    <li class="nav-item links"><a href="{{ route('stories.show', Auth::user()->id) }}">Történeteim</a></li>
+                    <li class="nav-item links"><a href="{{ route('stories.create') }}">Történet létrehozása</a></li>
                     <li class="nav-item links"><a href="{{ url('/logout') }}">Kijelentkezés</a></li>
                 </ul>
             @endauth

@@ -52,8 +52,8 @@ class StoryController extends Controller
             'ageLimit' => 'required|min:1',
             'coverPhoto' => 'nullable|file|mimes:jpg,png|max:2048',
         ], [
-            'title.required' => 'A könyv címének megadása kötelező',
-            'title.max' => 'A könyv címének hossza max 255 karakter lehet',
+            'title.required' => 'A történet címének megadása kötelező',
+            'title.max' => 'A történet címének hossza max 255 karakter lehet',
             'author.required' => 'Az író nevének megadása kötelező',
             'author.max' => 'Az író nevének hossza max 128 karakter lehet',
             'ageLimit.required' => 'A korhatár megadása kötelező',
@@ -83,8 +83,10 @@ class StoryController extends Controller
         $story = Story::create($data);
         $story->save();
         $story->owners()->attach(Auth::user());
+        $story['creator_id'] = Auth::id();
+
         $request->session()->flash('story_created', true);
-        return view('stories.edit', compact('story'));
+        return view('nodes.store', compact('story'));
     }
 
     /**
@@ -119,7 +121,7 @@ class StoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

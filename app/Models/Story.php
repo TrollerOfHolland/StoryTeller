@@ -21,13 +21,18 @@ class Story extends Model
         'ageLimit',
         'rating',
         'numOfRates',
+        'creator_id',
     ];
 
     public function node() {
         return $this->hasOne(Node::class);
     }
 
+    public function creator() {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
+
     public function owners() {
-        return $this->belongsToMany(User::class)->withTimestamps();;
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
