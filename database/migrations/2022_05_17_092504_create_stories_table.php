@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Node;
 
 return new class extends Migration
 {
@@ -23,7 +24,11 @@ return new class extends Migration
             $table->string('coverPhoto')->nullable();
             $table->boolean('disable_comments')->default(false);
             $table->boolean('disable_ratings')->default(false);
+            $table->unsignedBigInteger("creator_id")->nullable();
             $table->timestamps();
+
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

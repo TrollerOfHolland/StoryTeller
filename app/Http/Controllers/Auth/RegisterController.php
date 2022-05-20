@@ -59,6 +59,20 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birthday' => ['required'],
+        ],[
+            'name.required' => 'A könyv címének megadása kötelező',
+            'name.string' => 'Csak a magyar ABC szerinti karaktereket adjon meg',
+            'name.max' => 'A név hossza maximum 255 karakter lehet',
+            'email.required' => 'Az email cím megadása kötelező',
+            'email.string' => 'Az email cím formátuma nem megfelőle',
+            'email.email' => 'Az email cím formátuma nem megfelőle',
+            'email.max' => 'Az email cím hossza maximum 255 karakter lehet',
+            'email.unique' => 'Ez az email cím már foglalt',
+            'password.required' => 'A jelszó megadása kötelező',
+            'password.string' => 'A jelszó formátuma nem megfelőle',
+            'password.min' => 'A jelszónak legalább 8 karakter hosszúnak kell lennie ',
+            'password.confirmed' => 'Különböző jelszót adott meg',
+            'birthday.required' => 'A születési idő megadása kötelező megadása kötelező',
         ]);
     }
 

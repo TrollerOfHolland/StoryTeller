@@ -4,6 +4,7 @@
         table-layout: fixed;
         width: 100%;
     }
+
     th {
         text-align: center;
     }
@@ -39,24 +40,27 @@
                                 @foreach ($books as $book)
                                     <tr>
                                         <td><img src="{{ asset($book->coverPhoto ? 'storage/thumbnails/' . $book->coverPhoto : 'images/logo.png') }}"
-                                            style="max-width: 100%">
+                                                style="max-width: 100%">
                                         </td>
                                         <td>{{ $book->title }}</td>
                                         <td>{{ $book->author }}</td>
                                         <td>{{ $book->ageLimit }}</td>
                                         <td>{{ $book->created_at }}</td>
                                         @if (count($book->ratings) > 0)
-                                            <td>{{ floor($book->ratings->sum('rating') / count($book->ratings)) }} / 5</td>
+                                            <td>{{ floor($book->ratings->sum('rating') / count($book->ratings)) }} / 5
+                                            </td>
                                         @else
                                             <td>
                                                 Nincs értékelve!
                                             </td>
                                         @endif
                                         <td>{{ count($book->ratings) }}</td>
-                                        <td> <a href="{{ route('books.read', $book->id) }}"
-                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Elolvas
-                                                <i class="fas fa-angle-right"></i>
-                                            </a></td>
+
+                                        @if($book->owners->contains(Auth::user()))
+                                            <td> <a href="{{ route('books.read', $book->id) }}" class="text-black">Elolvas </a></td>
+                                        @else
+                                            <td> <a href="{{ route('books.addToOwnedBooks', $book->id) }}" class="text-black">Hozzáadás a könyveimhez</a></td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <form action="{{ route('nodes.store') }}" method="POST">
                                 @csrf
-                                @if (!Session::has('story_created'))
+                                @if (!Session::has('story_created') && $story->node_id != null)
                                     @if ($node->parent_id != null)
                                         <input name="node_id" value="{{ $node->id }}" type="hidden" />
                                     @endif
@@ -20,7 +20,7 @@
                                     <label for="content" class="block text-lg font-medium text-gray-700"
                                         style="padding-left: 10px">
                                         Cselekmény</label>
-                                    @if (!Session::has('story_created'))
+                                    @if (!Session::has('story_created') && $story->node_id != null)
                                         @if ($node->parent_id != null)
                                             <textarea rows="8" name="content" id="content" style="width: 100%"
                                                 class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm "> {{ $node->content }}
@@ -65,7 +65,7 @@
                                 </div>
                                 <button type="submit"
                                     class="mt-6 bg-blue-500 hover:bg-blue-600 text-gray-100 font-semibold px-2 py-1 text-xl">Létrehozás</button>
-                                @if (!Session::has('story_created'))
+                                @if (!Session::has('story_created') && $story->node_id != null)
                                     @if ($node->parent_id != null)
                                         <a href="{{ route('nodes.edit', $node->parent_id) }}" class="btn btn-default">
                                             Vissza az előző ponthoz </a>

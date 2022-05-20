@@ -14,20 +14,24 @@ html, body {
 .flex-center {
     align-items: center;
     display: flex;
-
 }
-
+.logo {
+    max-width:100%;
+    height: auto;
+}
 .top-left {
     position: absolute;
     left: 10px;
     top: 10px;
+    width: 15vw;
 }
 
 .title {
-    font-size: 150px;
+    font-size: 10vw;
     position: absolute;
     top: 10px;
-    margin-left: 300px;
+    width: 100%;
+    margin-left: 250px;
 }
 .links {
     position: absolute;
@@ -38,8 +42,8 @@ html, body {
 
 .links > a {
     color: #636b6f;
-    padding: 10px 120px;
-    font-size: 30px;
+    padding: 2vh 8vw;
+    font-size: 3vw;
     font-weight: 600;
     letter-spacing: .1rem;
     text-decoration: none;
@@ -47,15 +51,15 @@ html, body {
     border: 2px solid grey;
 }
 
-.m-b-md {
-    margin-bottom: 30px;
+.extras {
+    max-width:100%;
 }
 .extras > a {
     position: relative;
     top: 300px;
     color: #636b6f;
-    padding: 0 120px;
-    font-size: 50px;
+    padding: 5vw;
+    font-size: 4vw;
     font-weight: 600;
     letter-spacing: .1rem;
     text-decoration: none;
@@ -64,24 +68,24 @@ html, body {
 
 .grid-container {
     position: relative;
+    max-width: 100%;
     bottom: 200px;
     display:grid;
     grid-template-columns: auto auto auto;
   }
 .grid-item > .logout {
     position: relative;
-    left: 495px;
+    left: 113%;
 }
   .grid-item{
-    padding: 40px;
+    padding: 5vh 3vw;
     text-align: center;
   }
 
-
   .grid-item > a {
     color: #636b6f;
-    padding: 30px 60px;
-    font-size: 35px;
+    padding: 3vh 3vw;
+    font-size: 2vw;
     font-weight: 600;
     text-decoration: none;
     text-transform: uppercase;

@@ -79,11 +79,11 @@ class StoryController extends Controller
             $data['coverPhoto'] = $file->hashName();
             Storage::disk('public')->put('thumbnails/' . $data['coverPhoto'], $file->get());
         }
-
+        $data['creator_id'] = Auth::id();
         $story = Story::create($data);
         $story->save();
         $story->owners()->attach(Auth::user());
-        $story['creator_id'] = Auth::id();
+
 
         $request->session()->flash('story_created', true);
         return view('nodes.store', compact('story'));
@@ -136,13 +136,28 @@ class StoryController extends Controller
     }
 
     /**
-     * Returns the view form for a specific book
+     * Returns the view form for a specific story
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function read($id)
+    public function readStory($id)
     {
+        $story = Story::find($id);
+        return view('stories.read', compact('story'));
+    }
 
+    public function addToOwnedStories($id)
+    {
+        $story = Story::find($id);
+        $story->owners()->attach(Auth::user());
+
+        return redirect()->route('stories.index');
+    }
+
+    public function getStory($id)
+    {
+        $story = Story::find($id);
+        return view('nodes.store', compact('story'));
     }
 }

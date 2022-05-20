@@ -51,6 +51,9 @@ class NodeController extends Controller
             return back()->with('missing_option', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához');
         }
         $node_id = $request->input('node_id');
+
+        //true if this isnt the first node of the story
+        //false if this is the first node of the story
         if ($node_id != NULL) {
             $node = Node::find($node_id);
 
@@ -79,10 +82,13 @@ class NodeController extends Controller
             $request->session()->flash('node_updated', true);
             return redirect()->route('nodes.edit', $node->id);
         } else {
-            $story = Story::find($request->input('story_id'));
             $data['story_id'] = $request->input('story_id');
-            $node = $story->node()->create($data);
+            $node = Node::create($data);
             $node->save();
+
+            $story = Story::find($request->input('story_id'));
+            $story['node_id'] = $node->id;
+            $story->update();
 
             $child_data = [];
             $child_data['story_id'] = $request->input('story_id');
@@ -99,8 +105,6 @@ class NodeController extends Controller
             $node['option_two_id'] = $node2->id;
             $node['option_three_id'] = $node3->id;
             $node->update();
-
-
 
             $request->session()->flash('node_created', true);
 

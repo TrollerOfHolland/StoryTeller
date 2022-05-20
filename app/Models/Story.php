@@ -22,10 +22,11 @@ class Story extends Model
         'rating',
         'numOfRates',
         'creator_id',
+        'node_id'
     ];
 
     public function node() {
-        return $this->hasOne(Node::class);
+        return $this->hasOne(Node::class, 'node_id');
     }
 
     public function creator() {
@@ -34,5 +35,13 @@ class Story extends Model
 
     public function owners() {
         return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    public function ratings() {
+        return $this->hasMany(StoryRating::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(StoryComment::class);
     }
 }

@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Név') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus oninvalid="this.setCustomValidity('Adja meg a nevét')" oninput="setCustomValidity('')">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail cím') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" oninvalid="this.setCustomValidity('Adja meg az email címét')" oninput="setCustomValidity('')">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Jelszó') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" oninvalid="this.setCustomValidity('Adja meg a jelszavát')" oninput="setCustomValidity('')">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Jelszó megerősítése') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" oninvalid="this.setCustomValidity('Erősítse meg a jelszavát')" oninput="setCustomValidity('')">
                             </div>
                         </div>
 
@@ -65,7 +65,7 @@
                             <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Születési idő') }}</label>
 
                             <div class="col-md-6">
-                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday">
+                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday" oninvalid="this.setCustomValidity('Adja meg a születési idejét')" oninput="setCustomValidity('')">
 
                                 @error('birthday')
                                 <span class="invalid-feedback" role="alert">

@@ -22,17 +22,19 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         .logo {
-            max-width: 40%;
+            max-width: 50%;
         }
         .links > a {
-                color: #636b6f;
-                padding: 0 10px;
-                font-size: 15px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+            color: #636b6f;
+            padding: 1vw;
+            font-size: 1vw;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .navbar-brand {
+            font-size: 1vw;
+        }
     </style>
 </head>
 
@@ -44,7 +46,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="logó" class="logo">
             </ul>
             @auth
-                <ul class="nav navbar-nav mx-auto" style="letter-spacing: .1rem">
+                <ul class="nav navbar-nav mx-auto" >
                     <li class="nav-item links"><a href="{{ route('books.index') }}">Összes könyv</a></li>
                     <li class="nav-item links"><a href="{{ route('books.show', Auth::user()->id) }}">Könyveim</a></li>
                     <li class="nav-item links"><a href="{{ route('books.create') }}">Könyv létrehozása</a></li>

@@ -20,6 +20,6 @@ class StoryRating extends Model
     }
 
     public function rated_on() {
-        return $this->belongsTo(Book::class, 'story_id');
+        return $this->belongsTo(Story::class, 'story_id');
     }
 }

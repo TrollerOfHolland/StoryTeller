@@ -131,4 +131,12 @@ class BookController extends Controller
         return Storage::disk('public')->download('contents/' . $book['content']);
     }
 
+    public function addToOwnedBooks($id)
+    {
+        $book = Book::find($id);
+        $book->owners()->attach(Auth::user());
+
+        return redirect()->route('books.index');
+    }
+
 }

@@ -18,8 +18,8 @@
 <body>
     <div class="flex-center position-ref full-height">
         <header>
-            <div class="top-left logo">
-                <img src="images/logo.png" alt="logo">
+            <div class="top-left">
+                <img src="images/logo.png" alt="logo" class="logo">
             </div>
             <div class="title m-b-md">
                 StoryTeller

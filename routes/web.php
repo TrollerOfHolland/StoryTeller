@@ -41,7 +41,13 @@ Route::resource('ratings', RatingController::class);
 Route::resource('stories', StoryController::class);
 Route::resource('nodes', NodeController::class);
 
-Route::get('read/{id}', [StoryController::class, 'read'])->name('stories.read');
+Route::get('readStory/{id}', [StoryController::class, 'readStory'])->name('stories.readStory');
+
+Route::get('getStory/{id}', [StoryController::class, 'getStory'])->name('stories.getStory');
+
+Route::get('addToOwnedStories/{id}', [StoryController::class, 'addToOwnedStories'])->name('stories.addToOwnedStories');
+
+Route::get('addToOwnedBooks/{id}', [BookController::class, 'addToOwnedBooks'])->name('books.addToOwnedBooks');
 
 Route::get('read/{id}', [BookController::class, 'read'])->name('books.read');
 

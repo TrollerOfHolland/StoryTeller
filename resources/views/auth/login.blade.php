@@ -6,7 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Bejelentkezés') }}</div>
-
+                @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('error') }}
+                    </div>
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -15,7 +19,9 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-mail cím') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control
+                                @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus oninvalid="this.setCustomValidity('Az email cím nem megfelelő')" oninput="setCustomValidity('')">
+
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +35,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Jelszó') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" oninvalid="this.setCustomValidity('Adja meg jelszavát')" oninput="setCustomValidity('')">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
