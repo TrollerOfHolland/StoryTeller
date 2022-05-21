@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('nodes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('story_id');
-            $table->string('content')->nullable();
+            $table->longText('content')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('option_one_id')->nullable();
             $table->string('option_one_text')->nullable();
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('option_two_text')->nullable();
             $table->unsignedBigInteger('option_three_id')->nullable();
             $table->string('option_three_text')->nullable();
+            $table->boolean('end')->default(false);
             $table->timestamps();
 
             $table->foreign('story_id')->references('id')->on('stories')->onDelete('cascade');

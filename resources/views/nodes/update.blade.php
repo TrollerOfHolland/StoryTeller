@@ -6,6 +6,16 @@
             <div class="row">
                 <div class="col-md-12 col-sm-9 col-xs-9">
                     <div class="card">
+                        @if (session()->has('missing_options'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('missing_options') }}
+                            </div>
+                        @endif
+                        @if (session()->has('advice'))
+                            <div class="alert alert-info">
+                                {{ session()->get('advice') }}
+                            </div>
+                        @endif
                         <div class="card-header">{{ $story->title }} </div>
                         <div class="card-body">
                             <form action="{{ route('nodes.update', $node->id) }}" method="POST">
@@ -29,18 +39,20 @@
                                     @error('option_one_text')
                                         <p class="text-red-500">{{ $message }}</p>
                                     @enderror
-                                    @if (empty($node1->content))
-                                        <a href="{{ route('nodes.create', $node1->id) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Első
-                                            történetszál folytatása
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('nodes.edit', $node1->id) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Első
-                                            történetszál folytatása
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
+                                    @if ($node->option_one_text != null)
+                                        @if (empty($node1->content))
+                                            <a href="{{ route('nodes.create', $node1->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Első
+                                                történetszál folytatása
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('nodes.edit', $node1->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Első
+                                                történetszál folytatása
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="mb-5">
@@ -52,18 +64,20 @@
                                     @error('option_two_text')
                                         <p class="text-red-500">{{ $message }}</p>
                                     @enderror
-                                    @if (empty($node2->content))
-                                        <a href="{{ route('nodes.create', $node2->id) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Második
-                                            történetszál folytatása
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('nodes.edit', $node2->id) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Második
-                                            történetszál folytatása
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
+                                    @if ($node->option_two_text != null)
+                                        @if (empty($node2->content))
+                                            <a href="{{ route('nodes.create', $node2->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Második
+                                                történetszál folytatása
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('nodes.edit', $node2->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Második
+                                                történetszál folytatása
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="mb-5">
@@ -75,28 +89,35 @@
                                     @error('option_three_text')
                                         <p class="text-red-500">{{ $message }}</p>
                                     @enderror
-                                    @if (empty($node3->content))
-                                        <a href="{{ route('nodes.create', $node3->id) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Harmadik
-                                            történetszál folytatása
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('nodes.edit', $node3->id) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Harmadik
-                                            történetszál folytatása
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
+                                    @if ($node->option_three_text != null)
+                                        @if (empty($node3->content))
+                                            <a href="{{ route('nodes.create', $node3->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Harmadik
+                                                történetszál folytatása
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('nodes.edit', $node3->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 px-1.5 py-1 text-black mt-3 font-semibold text-center">Harmadik
+                                                történetszál folytatása
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        @endif
                                     @endif
                                 </div>
                                 <button type="submit"
                                     class="mt-6 bg-blue-500 hover:bg-blue-600 text-gray-100 font-semibold px-2 py-1 text-xl">Mentés</button>
                                 @if (!Session::has('story_created'))
                                     @if ($node->parent_id != null)
-                                        <a href="{{ route('nodes.edit', $node->parent_id) }}" class="btn btn-default">
+                                        <a href="{{ route('nodes.edit', $node->parent_id) }}" class="text-black"
+                                            style="padding: 1vw">
                                             Vissza az előző ponthoz </a>
                                     @endif
                                 @endif
+                                <label for="end">
+                                    Történetszál vége
+                                </label>
+                                <input type="checkbox" id="end" name="end">
                         </div>
                     </div>
                 </div>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Node;
 use Illuminate\Http\Request;
 use App\Models\Story;
+use App\Models\StoryComment;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -64,16 +66,6 @@ class StoryController extends Controller
 
         ]);
 
-        $data['disable_comments'] = false;
-        if ($request->has('disable_comments')) {
-            $data['disable_comments'] = true;
-        }
-
-        $data['disable_ratings'] = false;
-        if ($request->has('disable_ratings')) {
-            $data['disable_ratings'] = true;
-        }
-
         if ($request->hasFile('coverPhoto')) {
             $file = $request->file('coverPhoto');
             $data['coverPhoto'] = $file->hashName();
@@ -81,6 +73,15 @@ class StoryController extends Controller
         }
         $data['creator_id'] = Auth::id();
         $story = Story::create($data);
+
+        if ($request->has('disable_comments')) {
+            $story['disable_comments'] = true;
+        }
+
+        if ($request->has('disable_ratings')) {
+            $story['disable_ratings'] = true;
+        }
+
         $story->save();
         $story->owners()->attach(Auth::user());
 
@@ -143,8 +144,13 @@ class StoryController extends Controller
      */
     public function readStory($id)
     {
-        $story = Story::find($id);
-        return view('stories.read', compact('story'));
+        $node = Node::find($id);
+        $story = Story::find($node->story_id);
+        $comments = StoryComment::where('story_id', '=', $story->id)->get();
+        if($node->content == null) {
+            return view('stories.end', compact('story', 'node', 'comments'));
+        }
+        return view('stories.read', compact('story', 'node', 'comments'));
     }
 
     public function addToOwnedStories($id)

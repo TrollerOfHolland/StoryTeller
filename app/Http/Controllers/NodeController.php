@@ -48,7 +48,8 @@ class NodeController extends Controller
             'content.required' => 'Kötelező megadni valamilyen cselekményt!',
         ]);
         if (!$request->filled('option_one_text') && !$request->filled('option_two_text') && !$request->filled('option_three_text')) {
-            return back()->with('missing_option', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához');
+            return back()->with('missing_options', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához')
+                         ->with('advice', 'Adja meg legalább az egyik történetszál nevét és kattintson a mentés gombra');
         }
         $node_id = $request->input('node_id');
 
@@ -132,6 +133,9 @@ class NodeController extends Controller
     {
         $node = Node::find($id);
         $story = Story::find($node->story_id);
+        if($node->end) {
+            return view('nodes.end', compact('node', 'story'));
+        }
         $node1 = Node::find($node->option_one_id);
         $node2 = Node::find($node->option_two_id);
         $node3 = Node::find($node->option_three_id);
@@ -156,14 +160,20 @@ class NodeController extends Controller
         ], [
             'content.required' => 'Kötelező megadni valamilyen cselekményt!',
         ]);
+
         if (!$request->filled('option_one_text') && !$request->filled('option_two_text') && !$request->filled('option_three_text')) {
-            return back()->with('missing_option', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához');
+            return back()->with('missing_options', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához')
+                         ->with('advice', 'Adja meg legalább az egyik történetszál nevét és kattintson a mentés gombra');
         }
         $node = Node::find($id);
         $node['content'] = $request->input('content');
         $node['option_one_text'] = $request->input('option_one_text');
         $node['option_two_text'] = $request->input('option_two_text');
         $node['option_three_text'] = $request->input('option_three_text');
+
+        if ($request->has('end')) {
+            $node['end'] = true;
+        }
 
         $node->update();
         $request->session()->flash('node_updated', true);
@@ -178,5 +188,18 @@ class NodeController extends Controller
      */
     public function destroy(Request $request)
     {
+
+    }
+
+    public function end(Request $request, $id) {
+        $node = Node::find($id);
+
+        if ($request->has('open')) {
+            $node['end'] = false;
+        }
+
+        $node->update();
+        $request->session()->flash('node_updated', true);
+        return redirect()->route('nodes.edit', $node->id);
     }
 }

@@ -4,6 +4,16 @@
     <div class="container">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="row">
+                @if (session()->has('missing_options'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('missing_options') }}
+                    </div>
+                @endif
+                @if (session()->has('advice'))
+                    <div class="alert alert-info">
+                        {{ session()->get('advice') }}
+                    </div>
+                @endif
                 <div class="col-md-12 col-sm-9 col-xs-9">
                     <div class="card">
                         <div class="card-header">Történet pont létrehozása a(z) {{ $story->title }} történethez</div>

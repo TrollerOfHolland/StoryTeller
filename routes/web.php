@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NodeController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\StoryCommentController;
 use App\Http\Controllers\StoryController;
+use App\Http\Controllers\StoryRatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +43,7 @@ Route::resource('books', BookController::class);
 Route::resource('ratings', RatingController::class);
 Route::resource('stories', StoryController::class);
 Route::resource('nodes', NodeController::class);
+Route::resource('story_ratings', StoryRatingController::class);
 
 Route::get('readStory/{id}', [StoryController::class, 'readStory'])->name('stories.readStory');
 
@@ -54,6 +58,8 @@ Route::get('read/{id}', [BookController::class, 'read'])->name('books.read');
 Route::get('download/{id}', [BookController::class, 'download'])->name('books.download');
 
 Route::get('create/{id}', [NodeController::class, 'create'])->name('nodes.create');
+
+Route::get('end/{id}', [NodeController::class, 'end'])->name('nodes.end');
 
 /*
 |--------------------------------------------------------------------------

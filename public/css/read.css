@@ -1,0 +1,153 @@
+.comment {
+    padding-left: 1vw;
+    font-size: 1vw;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.sidebar_title {
+    padding-left: 1vw;
+    font-weight: 600;
+    font-size: 1.2vw;
+}
+
+.content {
+    text-align: center;
+    font-weight: 600;
+    border: 3px solid black;
+    padding: 1vh 2vw;
+}
+
+.options {
+    text-align: center;
+}
+
+.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    color: initial;
+    padding: 1vh 8vw;
+    border: 3px solid black;
+    margin: 2vh;
+    border-radius: 25px;
+}
+
+.button:hover {
+    background-color: aqua;
+}
+
+.comment {
+    width: 20vw;
+    font-weight: 600;
+}
+
+.rating {
+    display: flex;
+    margin-top: -10px;
+    flex-direction: row-reverse;
+    margin-left: -4px;
+    float: left;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label {
+    position: relative;
+    width: 19px;
+    font-size: 50px;
+    padding: 0 2vw;
+    color: #ff0000;
+    cursor: pointer;
+}
+
+.rating > label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+    opacity: 1 !important;
+}
+
+.rating > input:checked ~ label:before {
+    opacity: 1;
+}
+
+.rating:hover > input:checked ~ label:before {
+    opacity: 0.4;
+}
+
+.comment-area textarea {
+    resize: none;
+    border: 2px solid black;
+    margin-bottom: 2vh;
+}
+
+.button_div {
+    text-align: center;
+}
+
+.submit {
+    width: 30%;
+    font-size: 1.5vw;
+    color: black;
+    border-radius: 20px;
+    background-color: white;
+    border: 2px solid greenyellow;
+}
+
+.submit:hover {
+    background-color: #4caf50;
+    color: white;
+}
+
+p {
+    font-size: 2vw;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+}
+.return {
+    text-align: center;
+}
+
+.back {
+    padding-top: 2vh;
+}
+
+ .button-81 {
+  background-color: #fff;
+  border: 2px solid #adc5e4;
+  border-radius: 2rem;
+  box-sizing: border-box;
+  color: #0d172a;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Basier circle",-apple-system;
+  font-size: 1.3vw;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1vw 2vh;
+  text-align: center;
+  text-decoration: none black solid;
+
+}
+
+.button-81:hover {
+  background-color: #1e293b;
+  color: #fff;
+}
+

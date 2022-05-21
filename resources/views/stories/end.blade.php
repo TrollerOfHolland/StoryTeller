@@ -2,7 +2,9 @@
 
 <!-- Styles -->
 <link href="{{ URL::asset('css/read.css') }}" rel="stylesheet">
+<style>
 
+</style>
 @section('content')
     <div>
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -10,7 +12,7 @@
                 <!-- Left-sidebar -->
                 <div class="col-md-3 col-sm-3 col-xs-3">
                     <div class="sidebar_title">Eddigi megjegyzések a történethez</div><br>
-                    @foreach ($comments as $comment)
+                    @foreach ($story->comments as $comment)
                         <div class="comment">- {{ $comment->commentText }} </div><br>
                     @endforeach
                 </div>
@@ -18,23 +20,11 @@
                     <div class="card">
                         <div class="card-header"><div class="title">{{ $story->title }}</div></div>
                         <div class="card-body">
-                            <div class="content">
-                                {{ $node->content }}
-                            </div>
-                            <div class="options">
-                                @if ($node->option_one_text != null)
-                                    <a href="{{ route('stories.readStory', $node->option_one_id) }}" class="button">{{ $node->option_one_text }}</a><br>
-                                @endif
-                                @if ($node->option_two_text != null)
-                                    <a href="{{ route('stories.readStory', $node->option_two_id) }}" class="button">{{ $node->option_two_text }}</a><br>
-                                @endif
-                                @if ($node->option_three_text != null)
-                                    <a href="{{ route('stories.readStory', $node->option_three_id) }}" class="button">{{ $node->option_three_text }}</a>
-                                @endif
-                            </div>
+                            <p>Elérted az adott történetszál végét!</p>
                             @if ($node->parent_id != null)
-                                <div class="back">
-                                    <a href="{{ route('stories.readStory', $node->parent_id) }}" class="button-81" > Vissza az előző ponthoz </a>
+                                <div class="return">
+                                    <a href="{{ route('stories.readStory', $node->parent_id) }}" class="button"> Kattints ide a visszalépéshez </a>
+                                    <a href="{{ route('stories.readStory', $story->node_id) }}" class="button" > Kattints ide ha visszaszeretnél menni a történet elejére </a>
                                 </div>
                             @endif
                         </div>
@@ -43,11 +33,10 @@
 
                 <!-- Right-sidebar -->
                 <div class="col-md-3 col-sm-3 col-xs-3">
-
+                    <div class="sidebar_title">Értekelje a történetet vagy szóljon hozzá</div>
                     <div class="grid grid-cols-1 gap-3">
                         @auth
-                            @if (!$story->disable_ratings || !$story->disable_comments)
-                                <div class="sidebar_title">Értekelje a történetet vagy szóljon hozzá</div>
+                            @if (!$story->disable_ratings && !$story->disable_comments)
                                 <div class="border px-3 py-2 border-gray-400">
                                     <form action="{{ route('story_ratings.store') }}" method="POST">
                                         @csrf
@@ -73,7 +62,7 @@
                                                 </div>
                                             @enderror
                                         @else
-                                            <div class="col-span-1 px-2 py-4 bg-blue-100" style="font-weight:600">
+                                            <div class="col-span-1 px-2 py-4 bg-blue-100">
                                                 Ennél a történetnél le vannak tiltva az értéklelések!
                                             </div>
                                         @endif

@@ -1,12 +1,24 @@
 @extends('layouts.app')
 
+<!-- Styles -->
+<link href="{{ URL::asset('css/read.css') }}" rel="stylesheet">
+
 @section('content')
-    <div class="container">
+    <div>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="row">
-                <div class="col-md-9 col-sm-9 col-xs-9">
+                <!-- Left-sidebar -->
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="sidebar_title">Eddigi megjegyzések a könyvhöz</div><br>
+                    @foreach ($book->comments as $comment)
+                        <div class="comment">- {{ $comment->commentText }} </div><br>
+                    @endforeach
+                </div>
+                <div class="col-md-6 col-sm-9 col-xs-9">
                     <div class="card">
-                        <div class="card-header">{{ $book->title }}</div>
+                        <div class="card-header">
+                            <div class="title">{{ $book->title }}</div>
+                        </div>
                         <div class="card-body">
                             @if ($type == 'text/plain')
                                 @php
@@ -21,53 +33,52 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Sidebar -->
+                <!-- Right-sidebar -->
                 <div class="col-md-3 col-sm-3 col-xs-3">
-                    <h2 class="font-semibold text-3xl my-2">Értekelje a könyvet vagy szóljon hozzá</h2>
+                    <div class="sidebar_title">Értekelje a könyvet vagy szóljon hozzá</div>
                     <div class="grid grid-cols-1 gap-3">
                         @auth
                             @if (!$book->disable_ratings && !$book->disable_comments)
-                                <div class="border px-2.5 py-2 border-gray-400">
+                                <div class="border px-3 py-2 border-gray-400">
                                     <form action="{{ route('ratings.store') }}" method="POST">
                                         @csrf
                                         <input name="id" value="{{ $book->id }}" type="hidden" />
                                         @if (!$book->disable_ratings)
-                                        <p style="padding-left: 10px"> Mennyire értékeled a könyvet? </p>
-                                            <div class="mb-5" style="padding-left: 20px">
-                                                <input type="radio" id="1" name="rating" value="1">
-                                                <label for="1">1</label><br>
-                                                <input type="radio" id="2" name="rating" value="2">
-                                                <label for="2">2</label><br>
-                                                <input type="radio" id="3" name="rating" value="3">
-                                                <label for="3">3</label><br>
-                                                <input type="radio" id="4" name="rating" value="4">
-                                                <label for="4">4</label><br>
-                                                <input type="radio" id="5" name="rating" value="5">
-                                                <label for="5">5</label><br>
-                                                @error('rating')
-                                                    <p class="text-red-500">{{ $message }}</p>
-                                                @enderror
-                                            </div>
+                                            <div class="rating">
+                                                <input type="radio" name="rating" value="5" id="5">
+                                                <label for="5">☆</label>
+                                                <input type="radio" name="rating" value="4" id="4">
+                                                <label for="4">☆</label>
+                                                <input type="radio" name="rating" value="3" id="3">
+                                                <label for="3">☆</label>
+                                                <input type="radio" name="rating" value="2" id="2">
+                                                <label for="2">☆</label>
+                                                <input type="radio" name="rating" value="1" id="1">
+                                                <label for="1">☆</label>
+
+                                            </div><br>
+                                            @error('rating')
+                                                <div class="alert alert-danger" style="margin-top: 2vw">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         @else
                                             <div class="col-span-1 px-2 py-4 bg-blue-100">
                                                 Ennél a könyvnél le vannak tiltva az értéklelések!
                                             </div>
                                         @endif
                                         @if (!$book->disable_comments)
-                                            <div class="mb-5">
-                                                <label for="text" class="block text-lg font-medium text-gray-700" style="padding-left: 10px">
-                                                    Egyéb megjegyzések</label>
-                                                <textarea rows="4" name="comment" id="comment" style="width: 90%"
-                                                    class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm ">{{ old('comment') }}</textarea>
+                                            <div class="comment-area">
+                                                <textarea class="form-control" id="comment" name="comment" placeholder="Mi a véleménye a könyvről?" rows="4"></textarea>
                                             </div>
                                         @else
                                             <div class="col-span-1 px-2 py-4 bg-blue-100">
-                                                Ennél a könyvnél le vannak tiltva a kommentek!
+                                                Ennél a könyvnél le vannak tiltva a megjegyzések!
                                             </div>
                                         @endif
-                                        <button type="submit"
-                                            class="mt-6 bg-blue-500 hover:bg-blue-600 text-gray-100 font-semibold px-2 py-1 text-xl">Elküld</button>
+                                        <div class="button_div">
+                                            <button type="submit" class="submit"> Elküld </button>
+                                        </div>
                                     </form>
                                     @if (Session::has('rating_created'))
                                         <div class="px-3 py-5 mb-5 bg-green-500 text-blue font-semibold">
@@ -80,7 +91,8 @@
                     </div>
                     <div class="my-3">
                         <h3 class="font-semibold text-xl">Tartalom letöltése</h3>
-                        <a href="{{ route('books.download', ['id' => $book->id]) }}" class="text-blue-400 hover:text-blue-600 hover:underline"><i class="fas fa-download">Letöltés</i></a>
+                        <a href="{{ route('books.download', ['id' => $book->id]) }}"
+                            class="text-blue-400 hover:text-blue-600 hover:underline"><i class="fas fa-download">Letöltés</i></a>
                     </div>
                 </div>
             </div>

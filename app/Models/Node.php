@@ -23,7 +23,8 @@ class Node extends Model
         'option_two_id',
         'option_two_text',
         'option_three_id',
-        'option_three_text'
+        'option_three_text',
+        'end'
     ];
     public function parent() {
         return $this->hasOne(Node::class, 'parent_id');

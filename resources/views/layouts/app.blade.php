@@ -24,7 +24,8 @@
         .logo {
             max-width: 50%;
         }
-        .links > a {
+
+        .links>a {
             color: #636b6f;
             padding: 1vw;
             font-size: 1vw;
@@ -32,9 +33,17 @@
             text-decoration: none;
             text-transform: uppercase;
         }
+
         .navbar-brand {
             font-size: 1vw;
         }
+
+        body {
+            background-color:aliceblue;
+            color: black;
+            font-family: 'Nunito', sans-serif;
+        }
+
     </style>
 </head>
 
@@ -46,7 +55,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="logó" class="logo">
             </ul>
             @auth
-                <ul class="nav navbar-nav mx-auto" >
+                <ul class="nav navbar-nav mx-auto">
                     <li class="nav-item links"><a href="{{ route('books.index') }}">Összes könyv</a></li>
                     <li class="nav-item links"><a href="{{ route('books.show', Auth::user()->id) }}">Könyveim</a></li>
                     <li class="nav-item links"><a href="{{ route('books.create') }}">Könyv létrehozása</a></li>
