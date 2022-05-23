@@ -38,7 +38,7 @@ class StoryRatingController extends Controller
     public function store(Request $request)
     {
         $rating = $request->validate([
-            'rating' => 'required|in:1,2,3,4,5'
+            'rating' => 'in:1,2,3,4,5'
         ], [
             'rating.required' => 'Kötelező megadni egy értékelést!'
         ]);

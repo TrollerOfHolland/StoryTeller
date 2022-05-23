@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Node;
 use App\Models\Story;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class NodeController extends Controller
 {
@@ -49,7 +51,7 @@ class NodeController extends Controller
         ]);
         if (!$request->filled('option_one_text') && !$request->filled('option_two_text') && !$request->filled('option_three_text')) {
             return back()->with('missing_options', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához')
-                         ->with('advice', 'Adja meg legalább az egyik történetszál nevét és kattintson a mentés gombra');
+                ->with('advice', 'Adja meg legalább az egyik történetszál nevét és kattintson a mentés gombra');
         }
         $node_id = $request->input('node_id');
 
@@ -85,6 +87,7 @@ class NodeController extends Controller
         } else {
             $data['story_id'] = $request->input('story_id');
             $node = Node::create($data);
+            $node->fixpoint = true;
             $node->save();
 
             $story = Story::find($request->input('story_id'));
@@ -133,14 +136,20 @@ class NodeController extends Controller
     {
         $node = Node::find($id);
         $story = Story::find($node->story_id);
-        if($node->end) {
+        if ($node->end) {
             return view('nodes.end', compact('node', 'story'));
         }
         $node1 = Node::find($node->option_one_id);
         $node2 = Node::find($node->option_two_id);
         $node3 = Node::find($node->option_three_id);
 
-        return view('nodes.update', compact('node', 'story', 'node1', 'node2', 'node3'));
+        $can_delete = false;
+        if($node1->content == null && $node2->content == null && $node3->content == null && $node->parent_id != null) {
+            $can_delete = true;
+        }
+
+
+        return view('nodes.update', compact('node', 'story', 'node1', 'node2', 'node3', 'can_delete'));
     }
 
     /**
@@ -163,7 +172,7 @@ class NodeController extends Controller
 
         if (!$request->filled('option_one_text') && !$request->filled('option_two_text') && !$request->filled('option_three_text')) {
             return back()->with('missing_options', 'Kötelező megadni legalább egy opciót a történet pont létrehozásához')
-                         ->with('advice', 'Adja meg legalább az egyik történetszál nevét és kattintson a mentés gombra');
+                ->with('advice', 'Adja meg legalább az egyik történetszál nevét és kattintson a mentés gombra');
         }
         $node = Node::find($id);
         $node['content'] = $request->input('content');
@@ -173,6 +182,26 @@ class NodeController extends Controller
 
         if ($request->has('end')) {
             $node['end'] = true;
+        }
+        if ($request->has('fixpoint')) {
+            $node['fixpoint'] = true;
+        }
+        if ($request->has('remove_fixpoint')) {
+            $node['fixpoint'] = false;
+        }
+
+        $node->update();
+        $request->session()->flash('node_updated', true);
+        return redirect()->route('nodes.edit', $node->id);
+    }
+
+
+    public function end(Request $request, $id)
+    {
+        $node = Node::find($id);
+
+        if ($request->has('open')) {
+            $node['end'] = false;
         }
 
         $node->update();
@@ -186,20 +215,39 @@ class NodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
+        $current_node = Node::find($id);
 
+        $child1 = Node::find($current_node->option_one_id);
+        $child2 = Node::find($current_node->option_two_id);
+        $child3 = Node::find($current_node->option_three_id);
+
+        Schema::disableForeignKeyConstraints();
+        Node::where('id', $child1->id)->delete();
+        Node::where('id', $child2->id)->delete();
+        Node::where('id', $child3->id)->delete();
+        Schema::enableForeignKeyConstraints();
+
+        $current_node->content = null;
+        $current_node->option_one_id = null;
+        $current_node->option_two_id = null;
+        $current_node->option_three_id = null;
+        $current_node->option_one_text = null;
+        $current_node->option_two_text = null;
+        $current_node->option_three_text = null;
+        $current_node->update();
+
+        Log::error($current_node);
+        return redirect()->route('nodes.edit', $current_node->parent_id);
     }
-
-    public function end(Request $request, $id) {
-        $node = Node::find($id);
-
-        if ($request->has('open')) {
-            $node['end'] = false;
+    public function getFixpointWithoutDelete($id)
+    {
+        $current_node = Node::find($id);
+        while(!$current_node->fixpoint) {
+            $current_node = Node::find($current_node->parent_id);
         }
+        return redirect()->route('nodes.edit', $current_node->id);
 
-        $node->update();
-        $request->session()->flash('node_updated', true);
-        return redirect()->route('nodes.edit', $node->id);
     }
 }

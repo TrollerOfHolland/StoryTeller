@@ -8,33 +8,46 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="row">
                 <!-- Left-sidebar -->
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <div class="sidebar_title">Eddigi megjegyzések a történethez</div><br>
-                    @foreach ($comments as $comment)
-                        <div class="comment">- {{ $comment->commentText }} </div><br>
-                    @endforeach
-                </div>
+                @if (!$story->disable_comments)
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="sidebar_title">Eddigi megjegyzések a történethez</div><br>
+                        @foreach ($comments as $comment)
+                            <div class="comment">- {{ $comment->commentText }} </div><br>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="sidebar_title">Ennél a történetnél le vannak tiltva a kommentek</div>
+                    </div>
+                @endif
+                <!-- Content -->
                 <div class="col-md-6 col-sm-9 col-xs-9">
                     <div class="card">
-                        <div class="card-header"><div class="title">{{ $story->title }}</div></div>
+                        <div class="card-header">
+                            <div class="title">{{ $story->title }}</div>
+                        </div>
                         <div class="card-body">
                             <div class="content">
                                 {{ $node->content }}
                             </div>
                             <div class="options">
                                 @if ($node->option_one_text != null)
-                                    <a href="{{ route('stories.readStory', $node->option_one_id) }}" class="button">{{ $node->option_one_text }}</a><br>
+                                    <a href="{{ route('stories.readStory', $node->option_one_id) }}"
+                                        class="button">{{ $node->option_one_text }}</a><br>
                                 @endif
                                 @if ($node->option_two_text != null)
-                                    <a href="{{ route('stories.readStory', $node->option_two_id) }}" class="button">{{ $node->option_two_text }}</a><br>
+                                    <a href="{{ route('stories.readStory', $node->option_two_id) }}"
+                                        class="button">{{ $node->option_two_text }}</a><br>
                                 @endif
                                 @if ($node->option_three_text != null)
-                                    <a href="{{ route('stories.readStory', $node->option_three_id) }}" class="button">{{ $node->option_three_text }}</a>
+                                    <a href="{{ route('stories.readStory', $node->option_three_id) }}"
+                                        class="button">{{ $node->option_three_text }}</a>
                                 @endif
                             </div>
                             @if ($node->parent_id != null)
                                 <div class="back">
-                                    <a href="{{ route('stories.readStory', $node->parent_id) }}" class="button-81" > Vissza az előző ponthoz </a>
+                                    <a href="{{ route('stories.readStory', $node->parent_id) }}" class="button-81">
+                                        Vissza az előző ponthoz </a>
                                 </div>
                             @endif
                         </div>
@@ -42,11 +55,10 @@
                 </div>
 
                 <!-- Right-sidebar -->
-                <div class="col-md-3 col-sm-3 col-xs-3">
-
-                    <div class="grid grid-cols-1 gap-3">
-                        @auth
-                            @if (!$story->disable_ratings || !$story->disable_comments)
+                @if (!$story->disable_ratings || !$story->disable_comments)
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="grid grid-cols-1 gap-3">
+                            @auth
                                 <div class="sidebar_title">Értekelje a történetet vagy szóljon hozzá</div>
                                 <div class="border px-3 py-2 border-gray-400">
                                     <form action="{{ route('story_ratings.store') }}" method="POST">
@@ -76,15 +88,12 @@
                                             <div class="col-span-1 px-2 py-4 bg-blue-100" style="font-weight:600">
                                                 Ennél a történetnél le vannak tiltva az értéklelések!
                                             </div>
+                                            <input name="rating" value="5" type="hidden" />
                                         @endif
                                         @if (!$story->disable_comments)
                                             <div class="comment-area">
                                                 <textarea class="form-control" id="comment" name="comment" placeholder="Mi a véleménye a történetről?"
                                                     rows="4"></textarea>
-                                            </div>
-                                        @else
-                                            <div class="col-span-1 px-2 py-4 bg-blue-100">
-                                                Ennél a történetnél le vannak tiltva a megjegyzések!
                                             </div>
                                         @endif
                                         <div class="button_div">
@@ -97,10 +106,17 @@
                                         </div>
                                     @endif
                                 </div>
-                            @endif
-                        @endauth
+
+                            @endauth
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="sidebar_title">Ennél a történetnél le vannak tiltva az értékelések</div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

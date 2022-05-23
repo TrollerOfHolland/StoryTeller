@@ -1,0 +1,60 @@
+.options {
+    padding: 1vw 0;
+    font-weight: 600;
+    font-size: 1vw;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.content {
+    width: 100%;
+    border: 3px solid black;
+    font-weight: 600;
+    font-size: 1vw;
+}
+
+.input {
+    width: 70%;
+    border: 3px solid black;
+    font-weight: 600;
+    font-size: 1vw;
+}
+
+a {
+    font-weight: 600;
+    font-size: 1vw;
+}
+
+.button {
+    background-color: #111827;
+    border: 3px solid transparent;
+    border-radius: 1vw;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: system-ui;
+    font-size: 1.2vw;
+    font-weight: 600;
+    padding: 1.5vh 2vw;
+    text-align: center;
+
+}
+
+.button:hover {
+    background-color: #374151;
+}
+
+.desc {
+    font-weight: 600;
+    font-size: 2vw;
+    text-align: center;
+}

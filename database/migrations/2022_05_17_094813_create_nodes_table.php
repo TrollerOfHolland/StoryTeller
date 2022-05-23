@@ -25,13 +25,15 @@ return new class extends Migration
             $table->unsignedBigInteger('option_three_id')->nullable();
             $table->string('option_three_text')->nullable();
             $table->boolean('end')->default(false);
+            $table->boolean('fixpoint')->default(false);
+
             $table->timestamps();
 
-            $table->foreign('story_id')->references('id')->on('stories')->onDelete('cascade');
-            $table->foreign('parent_id')->references('id')->on('nodes')->onDelete('cascade');
-            $table->foreign('option_one_id')->references('id')->on('nodes')->onDelete('cascade');
-            $table->foreign('option_two_id')->references('id')->on('nodes')->onDelete('cascade');
-            $table->foreign('option_three_id')->references('id')->on('nodes')->onDelete('cascade');
+            $table->foreign('story_id')->references('id')->on('stories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('parent_id')->references('id')->on('nodes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('option_one_id')->references('id')->on('nodes');
+            $table->foreign('option_two_id')->references('id')->on('nodes');
+            $table->foreign('option_three_id')->references('id')->on('nodes');
         });
     }
 

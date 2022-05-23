@@ -26,7 +26,7 @@ class Story extends Model
     ];
 
     public function node() {
-        return $this->hasOne(Node::class, 'node_id');
+        return $this->hasOne(Node::class);
     }
 
     public function creator() {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Node extends Model
 {
@@ -24,10 +25,11 @@ class Node extends Model
         'option_two_text',
         'option_three_id',
         'option_three_text',
-        'end'
+        'end',
+        'fixpoint',
     ];
     public function parent() {
-        return $this->hasOne(Node::class, 'parent_id');
+        return $this->belongsTo(Node::class, 'parent_id');
     }
     public function option_one() {
         return $this->hasOne(Node::class, 'option_one_id');

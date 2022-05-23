@@ -55,6 +55,9 @@
                                             <label for="disable_ratings">
                                                 Értékelések kikapcsolása
                                             </label>
+                                            <div class="alert alert-info" >
+                                                Az értékelések kikapcsolásával, automatikusan 5-ös értékelést kap a történet ha a felhasználó kommentet ír hozzá
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

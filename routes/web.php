@@ -61,6 +61,12 @@ Route::get('create/{id}', [NodeController::class, 'create'])->name('nodes.create
 
 Route::get('end/{id}', [NodeController::class, 'end'])->name('nodes.end');
 
+Route::get('getFixpointWithoutDelete/{id}', [NodeController::class, 'getFixpointWithoutDelete'])->name('nodes.getFixpointWithoutDelete');
+
+Route::get('destroy/{id}', [NodeController::class, 'destroy'])->name('nodes.destroy');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Verification routes
