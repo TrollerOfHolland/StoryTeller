@@ -1,26 +1,17 @@
 @extends('layouts.app')
-<style>
-    table {
-        table-layout: fixed;
-        width: 100%;
-    }
-    th {
-        text-align: center;
-    }
 
-    td {
-        width: 25%;
-        text-align: center;
-        vertical-align: middle;
-    }
+<link href="{{ URL::asset('css/list.css') }}" rel="stylesheet">
 
-</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Könyveim</div>
+                    <div class="card-header">
+                        <div class="title">
+                            Könyveim
+                        </div>
+                    </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>

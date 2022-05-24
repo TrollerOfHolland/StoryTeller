@@ -61,6 +61,11 @@
                                         <input type="checkbox" id="disable_ratings" name="disable_ratings"
                                             {{ old('disable_ratings') ? 'checked' : '' }}>
                                     </div>
+                                    <div class="alert alert-info">
+                                        Az értékelések kikapcsolásával, automatikusan 5-ös értékelést kap a könyv ha a
+                                        felhasználó kommentet ír hozzá
+                                    </div>
+                                    <div>
                                         <label for="coverPhoto" class="options" style="width: 100%;">Kép feltöltése a
                                             könyvhöz</label>
                                         <input type="file" class="form-control-file" id="coverPhoto" name="coverPhoto"
@@ -76,15 +81,16 @@
                                         @error('content')
                                             <p class="text-red-500">{{ $message }}</p>
                                         @enderror
+                                    </div>
                                 </div>
-
-
-                                <button type="submit" class="button">Feltöltés</button>
-                            </form>
                         </div>
                     </div>
+                    <br><button type="submit" class="button">Feltöltés</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 @endsection

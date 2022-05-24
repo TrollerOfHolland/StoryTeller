@@ -147,10 +147,16 @@ class StoryController extends Controller
         $node = Node::find($id);
         $story = Story::find($node->story_id);
         $comments = StoryComment::where('story_id', '=', $story->id)->get();
-        if($node->content == null) {
-            return view('stories.end', compact('story', 'node', 'comments'));
+
+        $current_node = Node::find($id);
+        while(!$current_node->fixpoint) {
+            $current_node = Node::find($current_node->parent_id);
         }
-        return view('stories.read', compact('story', 'node', 'comments'));
+
+        if($node->content == null) {
+            return view('stories.end', compact('story', 'node', 'comments', 'current_node'));
+        }
+        return view('stories.read', compact('story', 'node', 'comments', 'current_node'));
     }
 
     public function addToOwnedStories($id)

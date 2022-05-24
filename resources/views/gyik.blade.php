@@ -7,66 +7,30 @@
 
     <title>Gyakran Ismételt Kérdések</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <style>
-        html,
-        body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .links>a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
 
         .logo {
             max-width: 40%;
         }
 
         .faq_question {
-            margin: 0px;
+            margin-top: 1vh;
             padding: 0px 0px 5px 0px;
             display: inline-block;
             cursor: pointer;
             font-weight: bold;
+            font-size: 2vw;
         }
 
-        .faq_answer_container {
-            display: none;
+        b {
+            font-size: 1vw;
+            font-weight: 600;
         }
 
     </style>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.faq_question').click(function() {
-                if ($(this).parent().is('.open')) {
-                    $(this).closest('.faq').find('.faq_answer_container').slideUp();
-                    $(this).closest('.faq').removeClass('open');
-                } else {
-                    $('.faq_answer_container').slideUp();
-                    $('.faq').removeClass('open');
-                    $(this).closest('.faq').find('.faq_answer_container').slideDown();
-                    $(this).closest('.faq').addClass('open');
-                }
-            });
-        });
-    </script>
+
 </head>
 @extends('layouts.app')
 @section('content')
@@ -79,22 +43,42 @@
             <div class="faq_answer_container">
                 <div class="faq_answer">A StoryTeller egy olyan oldal, amelyen interaktív történeteket és elekronikus
                     könyveket lehet készíteni, illetve olvasni. Nem kell mást tenned, mint regisztrálni, majd bejelentkezés
-                    után szabadon válogathatsz a mások által írt kalandok között. Amennyiben pedig van egy jó ötleted,
-                    megalkothatod az elképzelt kalandot.</div>
+                    után szabadon válogathatsz a mások által írt történetek és könyvek között. Amennyiben pedig van egy jó ötleted,
+                    megalkothatod az elképzelt történetedet.</div>
             </div>
         </div>
         <div class="faq">
-            <div class="faq_question">Hogyan tudok kalandot olvasni?</div>
+            <div class="faq_question">Hogyan tudok történetet olvasni?</div>
             <div class="faq_answer_container">
-                <div class="faq_answer">Először regisztrálnod kell az oldalra, majd bejelentkezés után a Kaland olvasása
-                    opcióra kattintani. Itt az adott kalandra kattintva tudod elkezdeni annak olvasását.</div>
+                <div class="faq_answer">Először regisztrálnod kell az oldalra, majd bejelentkezés után az <b>Összes Történet</b> opcióra kattintani. <br>
+                    Itt az <b>Elolvas</b> gombra kattintva tudod elkezdeni annak olvasását vagy <b>A hozzáadás a történeteimhez</b> gombal feliratkozni rá.</div>
             </div>
         </div>
         <div class="faq">
-            <div class="faq_question">Hogyan tudok kalandot létrehozni?</div>
+            <div class="faq_question">Hogyan tudok történetet létrehozni?</div>
             <div class="faq_answer_container">
-                <div class="faq_answer">Először regisztrálnod kell az oldalra, majd bejelentkezés után a Kaland olvasása
-                    opcióra kattintani. Itt az alap adatok megadása után kezdheted el a saját kalandod írását.</div>
+                <div class="faq_answer">Először regisztrálnod kell az oldalra, majd bejelentkezés után a <b>Történet Létrehozása</b>
+                    opcióra kattintani. Itt az alap adatok megadása után kezdheted el a saját történeted írását.</div>
+            </div>
+        </div>
+        <div class="faq">
+            <div class="faq_question">Hogyan tudok könyvet olvasni?</div>
+            <div class="faq_answer_container">
+                <div class="faq_answer">Először regisztrálnod kell az oldalra, majd bejelentkezés után az <b>Összes Könyv</b>opcióra kattintani. <br>
+                    Itt az <b>Elolvas</b> gombra kattintva tudod elkezdeni annak olvasását vagy <b>A hozzáadás a könyveimhez</b> gombal feliratkozni rá.</div>
+            </div>
+        </div>
+        <div class="faq">
+            <div class="faq_question">Hogyan tudok könyvet feltölteni?</div>
+            <div class="faq_answer_container">
+                <div class="faq_answer">Először regisztrálnod kell az oldalra, majd bejelentkezés után a <b>Könyv Létrehozása</b>
+                    opcióra kattintani. Itt az alap adatok megadása után feltöltheted a könyvedet.</div>
+            </div>
+        </div>
+        <div class="faq">
+            <div class="faq_question">Milyen formátumban lehet könyvet feltölteni?</div>
+            <div class="faq_answer_container">
+                <div class="faq_answer">Könyv feltöltésénél csak <b>.txt</b> és <b>.pdf</b> formátumú file-okat tudsz feltölteni mint tartalom.</div>
             </div>
         </div>
         <div class="faq">

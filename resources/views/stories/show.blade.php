@@ -1,27 +1,17 @@
 @extends('layouts.app')
-<style>
-    table {
-        table-layout: fixed;
-        width: 100%;
-    }
 
-    th {
-        text-align: center;
-    }
+<link href="{{ URL::asset('css/list.css') }}" rel="stylesheet">
 
-    td {
-        width: 25%;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Történeteim</div>
+                    <div class="card-header">
+                        <div class="title">
+                            Történeteim
+                        </div>
+                    </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -57,14 +47,17 @@
                                         @endif
                                         <td>{{ count($story->ratings) }}</td>
 
-                                        @if($story->owners->contains(Auth::user()))
-                                            <td> <a href="{{ route('stories.readStory', $story->node_id) }}" class="text-black">Elolvas </a> </td>
+                                        @if ($story->owners->contains(Auth::user()))
+                                            <td> <a href="{{ route('stories.readStory', $story->node_id) }}"
+                                                    class="text-black">Elolvas </a> </td>
                                         @endif
-                                        @if(Auth::id() == $story->creator_id)
-                                            @if(!($story->node_id == null))
-                                                <td> <a href="{{ route('nodes.edit', $story->node_id) }}" class="text-black">Szerkesztés </a> </td>
+                                        @if (Auth::id() == $story->creator_id)
+                                            @if (!($story->node_id == null))
+                                                <td> <a href="{{ route('nodes.edit', $story->node_id) }}"
+                                                        class="text-black">Szerkesztés </a> </td>
                                             @else
-                                                <td> <a href="{{ route('stories.getStory', $story->id) }}" class="text-black">Szerkesztés </a> </td>
+                                                <td> <a href="{{ route('stories.getStory', $story->id) }}"
+                                                        class="text-black">Szerkesztés </a> </td>
                                             @endif
                                         @endif
                                     </tr>
