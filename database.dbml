@@ -1,0 +1,142 @@
+Project StoryTeller {
+  database_type: 'MySQL'
+  Note: 'Adaatbézis leírása'
+}
+
+Table users {
+  id integer [pk, unique, increment]
+  username varchar
+  birthday date
+  email varchar
+  email_verified_at timestamp
+  password varchar
+  remember_token varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table password_resets {
+    email varchar
+    token varchar
+    created_at timestamp
+}
+
+Table failed_jobs {
+    id integer [pk, unique, increment]
+    connection varchar
+    queue varchar
+    payload varchar
+    exception varchar
+    failed_At timestamp
+}
+
+Table personal_access_tokens {
+    id integer [pk, unique, increment]
+    tokenable varchar
+    name varchar
+    token varchar(64) [unique]
+    abilities varchar
+    last_used_at timestamp
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table books {
+    id integer [pk, unique, increment]
+    title varchar
+    author varchar
+    ageLimit integer
+    rating float [default: 0]
+    numOfRates int [default: 0]
+    coverPhoto varchar
+    content varchar
+    disable_comments boolean [default: false]
+    disable_ratings boolean [default: false]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table book_user {
+    id integer [pk, unique, increment]
+    user_id integer [ref: > users.id]
+    book_id integer [ref: > books.id]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table comments {
+    id integer [pk, unique, increment]
+    user_id integer [ref: > users.id]
+    book_id integer [ref: > books.id]
+    commentText varchar
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table ratings {
+    id integer [pk, unique, increment]
+    user_id integer [ref: > users.id]
+    book_id integer [ref: > books.id]
+    rating integer
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table stories {
+    id integer [pk, unique, increment]
+    title varchar
+    author varchar
+    ageLimit integer
+    rating float [default: 0]
+    numOfRates int [default: 0]
+    coverPhoto varchar
+    disable_comments boolean [default: false]
+    disable_ratings boolean [default: false]
+    creator_id integer [ref: - users.id]
+    node_id integer [ref: - nodes.id]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table nodes {
+    id integer [pk, unique, increment]
+    story_id integer [ref: - stories.id]
+    content varchar
+    parent_id integer [ref: - nodes.id]
+    option_one_id integer [ref: - nodes.id]
+    option_one_text varchar
+    option_two_id integer [ref: - nodes.id]
+    option_two_text varchar
+    option_three_id integer [ref: - nodes.id]
+    option_three_text varchar
+    end boolean [default: false]
+    fixpoint boolean [default: false]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table story_user {
+    id integer [pk, unique, increment]
+    user_id integer [ref: > users.id]
+    story_id integer [ref: > stories.id]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table story_comments {
+    id integer [pk, unique, increment]
+    user_id integer [ref: > users.id]
+    story_id integer [ref: > stories.id]
+    commentText varchar
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table story_ratings {
+    id integer [pk, unique, increment]
+    user_id integer [ref: > users.id]
+    story_id integer [ref: > stories.id]
+    rating integer
+    created_at timestamp
+    updated_at timestamp
+}

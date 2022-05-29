@@ -51,6 +51,8 @@ Route::get('getStory/{id}', [StoryController::class, 'getStory'])->name('stories
 
 Route::get('addToOwnedStories/{id}', [StoryController::class, 'addToOwnedStories'])->name('stories.addToOwnedStories');
 
+Route::get('getFixpoint/{id}', [StoryController::class, 'getFixpoint'])->name('stories.getFixpoint');
+
 Route::get('addToOwnedBooks/{id}', [BookController::class, 'addToOwnedBooks'])->name('books.addToOwnedBooks');
 
 Route::get('read/{id}', [BookController::class, 'read'])->name('books.read');

@@ -10,15 +10,6 @@ use Illuminate\Support\Facades\Schema;
 
 class NodeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -82,7 +73,7 @@ class NodeController extends Controller
             $node['option_three_id'] = $node3->id;
 
             $node->update();
-            $request->session()->flash('node_updated', true);
+            $request->session()->flash('node_created', true);
             return redirect()->route('nodes.edit', $node->id);
         } else {
             $data['story_id'] = $request->input('story_id');
@@ -116,15 +107,6 @@ class NodeController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-    }
 
     /**
      * Show the form for editing the specified resource.

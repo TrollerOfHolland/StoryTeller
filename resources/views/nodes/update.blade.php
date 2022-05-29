@@ -16,6 +16,12 @@
                         {{ session()->get('advice') }}
                     </div>
                 @endif
+                @if (session()->has('node_created'))
+                    <div class="alert alert-info">
+                        Elkészült a történetpont!
+                    </div>
+                @endif
+
                 <div class="col-md-12 col-sm-9 col-xs-9">
                     <div class="card">
                         <div class="card-header">
@@ -118,7 +124,7 @@
                                         </label>
                                         <input type="checkbox" id="fixpoint" name="fixpoint">
                                     </div>
-                                @elseif(!$node->fixpoint && !$node->parent_id != null)
+                                @elseif($node->fixpoint && $node->parent_id != null)
                                     <div class="options">
                                         <label for="fixpoint">
                                             Fixpont eltávolítása

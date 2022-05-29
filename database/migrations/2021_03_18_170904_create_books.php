@@ -17,7 +17,7 @@ class CreateBooks extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->boolean('ageLimit');
+            $table->integer('ageLimit');
             $table->float('rating')->default(0);
             $table->integer('numOfRates')->default(0);
             $table->string('coverPhoto')->nullable();

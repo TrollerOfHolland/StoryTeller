@@ -48,7 +48,7 @@
                                 <div class="back">
                                     <a href="{{ route('stories.readStory', $node->parent_id) }}" class="button-81">
                                         Vissza az előző ponthoz </a>
-                                    <a href="{{ route('stories.readStory', $node->id) }}" class="button-81">
+                                    <a href="{{ route('stories.getFixpoint', $node->id) }}" class="button-81">
                                         Vissza az előző fixponthoz </a>
                                 </div>
                             @endif

@@ -103,40 +103,6 @@ class StoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
-    {
-
-    }
-
-    /**
      * Returns the view form for a specific story
      *
      * @param  int  $id
@@ -148,15 +114,10 @@ class StoryController extends Controller
         $story = Story::find($node->story_id);
         $comments = StoryComment::where('story_id', '=', $story->id)->get();
 
-        $current_node = Node::find($id);
-        while(!$current_node->fixpoint) {
-            $current_node = Node::find($current_node->parent_id);
-        }
-
         if($node->content == null) {
-            return view('stories.end', compact('story', 'node', 'comments', 'current_node'));
+            return view('stories.end', compact('story', 'node', 'comments'));
         }
-        return view('stories.read', compact('story', 'node', 'comments', 'current_node'));
+        return view('stories.read', compact('story', 'node', 'comments'));
     }
 
     public function addToOwnedStories($id)
@@ -171,5 +132,13 @@ class StoryController extends Controller
     {
         $story = Story::find($id);
         return view('nodes.store', compact('story'));
+    }
+
+    public function getFixpoint($id) {
+        $current_node = Node::find($id);
+        while(!$current_node->fixpoint) {
+            $current_node = Node::find($current_node->parent_id);
+        }
+        return redirect()->route('stories.readStory', $current_node->id);
     }
 }

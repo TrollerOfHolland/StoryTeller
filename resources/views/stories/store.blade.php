@@ -15,12 +15,12 @@
                     <div class="card-body">
                         <div class="container mx-auto p-3 lg:px-36 overflow-hidden min-h-screen">
                             <div class="mb-5">
-                                <h3 class="desc">Ezen az oldalon tudsz új történetet létrehozni</h3>
+                                <h3 class="desc">Ezen az oldalon tudsz új kalandtörténetet létrehozni</h3>
                             </div>
                             <form action="{{ route('stories.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-5">
-                                    <label for="title" class="label">Könyv címe</label>
+                                    <label for="title" class="label">Történet címe</label>
                                     <input type="text" name="title" id="title" value="{{ old('title') }}"
                                         style="width: 100%;" class="input">
                                     @error('title')
@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div class="mb-5">
-                                    <label for="author" class="label">Könyv szerzője</label>
+                                    <label for="author" class="label">Történet szerzője</label>
                                     <input type="text" name="author" id="author" value="{{ old('author') }}"
                                         style="width: 100%;" class="input">
                                     @error('author')
@@ -67,7 +67,7 @@
                                     </div>
                                     <div>
                                         <label for="coverPhoto" class="options" style="width: 100%;">Kép feltöltése a
-                                            könyvhöz</label>
+                                            történethez</label>
                                         <input type="file" class="form-control-file" id="coverPhoto" name="coverPhoto"
                                             title=" " style="width: 95px;" onchange="this.style.width = '100%';">
                                         @error('coverPhoto')
@@ -75,14 +75,12 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <br><button type="submit" class="button">Létrehozás</button>
+                            </form>
                         </div>
                     </div>
-                    <br><button type="submit" class="button">Feltöltés</button>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 @endsection
