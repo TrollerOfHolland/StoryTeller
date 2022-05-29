@@ -69,7 +69,7 @@
                                         <label for="coverPhoto" class="options" style="width: 100%;">Kép feltöltése a
                                             könyvhöz</label>
                                         <input type="file" class="form-control-file" id="coverPhoto" name="coverPhoto"
-                                            title=" " style="width: 95px;" onchange="this.style.width = '100%';">
+                                            title=" " >
                                         @error('coverPhoto')
                                             <p class="text-red-500">{{ $message }}</p>
                                         @enderror
@@ -77,7 +77,7 @@
                                         <label for="content" class="options" style="width: 100%;">Könyv tartalmának
                                             feltöltése</label>
                                         <input type="file" class="form-control-file" id="content" name="content" title=" "
-                                            style="width: 95px;" onchange="this.style.width = '100%';">
+                                            >
                                         @error('content')
                                             <p class="text-red-500">{{ $message }}</p>
                                         @enderror

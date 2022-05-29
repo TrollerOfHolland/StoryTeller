@@ -48,8 +48,10 @@
                                         <td>{{ count($story->ratings) }}</td>
 
                                         @if ($story->owners->contains(Auth::user()))
+                                            @if(!($story->node_id == null))
                                             <td> <a href="{{ route('stories.readStory', $story->node_id) }}"
                                                     class="text-black">Elolvas </a> </td>
+                                            @endif
                                         @endif
                                         @if (Auth::id() == $story->creator_id)
                                             @if (!($story->node_id == null))

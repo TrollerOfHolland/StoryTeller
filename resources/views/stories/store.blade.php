@@ -69,7 +69,7 @@
                                         <label for="coverPhoto" class="options" style="width: 100%;">Kép feltöltése a
                                             történethez</label>
                                         <input type="file" class="form-control-file" id="coverPhoto" name="coverPhoto"
-                                            title=" " style="width: 95px;" onchange="this.style.width = '100%';">
+                                            title=" " >
                                         @error('coverPhoto')
                                             <p class="text-red-500">{{ $message }}</p>
                                         @enderror
