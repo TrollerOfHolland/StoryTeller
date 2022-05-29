@@ -49,7 +49,9 @@
                                         <td>{{ count($story->ratings) }}</td>
 
                                         @if($story->owners->contains(Auth::user()))
-                                            <td> <a href="{{ route('stories.readStory', $story->node_id) }}" class="text-black">Elolvas </a> </td>
+                                            @if(!($story->node_id == null))
+                                                <td> <a href="{{ route('stories.readStory', $story->node_id) }}" class="text-black">Elolvas </a> </td>
+                                            @endif
                                         @else
                                             <td> <a href="{{ route('stories.addToOwnedStories', $story->id) }}" class="text-black">Hozzáadás a történeteimhez </a> </td>
                                         @endif

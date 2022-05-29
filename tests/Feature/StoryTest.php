@@ -2,21 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Story;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StoryTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    public function test_can_create_story()
     {
-        $response = $this->get('/');
+        $story = Story::factory()->create();
 
-        $response->assertStatus(200);
+        $this->assertTrue($story->wasRecentlyCreated);
     }
 }

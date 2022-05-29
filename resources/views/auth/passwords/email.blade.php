@@ -25,7 +25,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Nem megfelelő e-mail címet adott meg!</strong>
                                     </span>
                                 @enderror
                             </div>

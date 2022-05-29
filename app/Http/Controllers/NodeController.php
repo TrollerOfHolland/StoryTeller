@@ -12,7 +12,7 @@ class NodeController extends Controller
 {
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new node.
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,7 +24,7 @@ class NodeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created node in the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -109,7 +109,7 @@ class NodeController extends Controller
 
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified node.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -135,7 +135,7 @@ class NodeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified node in the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -177,7 +177,12 @@ class NodeController extends Controller
         return redirect()->route('nodes.edit', $node->id);
     }
 
-
+    /**
+     * Sets the end value of a node to false.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function end(Request $request, $id)
     {
         $node = Node::find($id);
@@ -192,7 +197,7 @@ class NodeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified node and it's child elements from the database.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -223,6 +228,13 @@ class NodeController extends Controller
         Log::error($current_node);
         return redirect()->route('nodes.edit', $current_node->parent_id);
     }
+
+    /**
+     * Finds the closest fixpoint from the current node - for editing
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function getFixpointWithoutDelete($id)
     {
         $current_node = Node::find($id);

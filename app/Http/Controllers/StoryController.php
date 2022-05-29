@@ -20,7 +20,7 @@ class StoryController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all the stories from the database.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +31,7 @@ class StoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new story.
      *
      * @return \Illuminate\Http\Response
      */
@@ -41,7 +41,7 @@ class StoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created story in the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -91,7 +91,7 @@ class StoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays all the stories that are owned by the currently logged in user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -103,7 +103,7 @@ class StoryController extends Controller
     }
 
     /**
-     * Returns the view form for a specific story
+     * Returns the view for reading a story
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -120,6 +120,12 @@ class StoryController extends Controller
         return view('stories.read', compact('story', 'node', 'comments'));
     }
 
+    /**
+     * Adds the specified story the owned books of the currently logged in user
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function addToOwnedStories($id)
     {
         $story = Story::find($id);
@@ -128,12 +134,24 @@ class StoryController extends Controller
         return redirect()->route('stories.index');
     }
 
+    /**
+     * Returns the story when creating a new node
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function getStory($id)
     {
         $story = Story::find($id);
         return view('nodes.store', compact('story'));
     }
 
+    /**
+     * Finds the closest fixpoint from the current node - for reading
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function getFixpoint($id) {
         $current_node = Node::find($id);
         while(!$current_node->fixpoint) {

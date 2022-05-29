@@ -14,11 +14,8 @@ class BookTest extends TestCase
     public function test_can_create_book()
     {
         $book = Book::factory()->create();
-        $user = User::factory()->create();
+
+        $this->assertTrue($book->wasRecentlyCreated);
     }
 
-    public function test_user_can_read_book()
-    {
-
-    }
 }

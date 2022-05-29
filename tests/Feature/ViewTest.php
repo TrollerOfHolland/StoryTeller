@@ -10,11 +10,6 @@ use Tests\TestCase;
 
 class ViewTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_welcome_screen_can_be_rendered()
     {
         $response = $this->get('/');
@@ -32,6 +27,31 @@ class ViewTest extends TestCase
     public function test_registration_screen_can_be_rendered()
     {
         $response = $this->get(route('register'));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_gyik_screen_can_be_rendered()
+    {
+        $response = $this->get('/gyik');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_dashboard_screen_can_be_rendered()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/dashboard');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_notice_screen_can_be_rendered()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/notice');
 
         $response->assertStatus(200);
     }

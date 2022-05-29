@@ -25,6 +25,7 @@ class BookController extends Controller
         $books = Book::all();
         return view('books.index', compact('books'));
     }
+
     /**
      * Displays all the owned books.
      *
@@ -36,8 +37,9 @@ class BookController extends Controller
         $books = User::find($id)->books;
         return view('books.show', compact('books'));
     }
+
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new book.
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,8 +47,9 @@ class BookController extends Controller
     {
         return view('books.store');
     }
+
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created book in the storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -76,16 +79,6 @@ class BookController extends Controller
 
         ]);
 
-        $data['disable_comments'] = false;
-        if ($request->has('disable_comments')) {
-            $data['disable_comments'] = true;
-        }
-
-        $data['disable_ratings'] = false;
-        if ($request->has('disable_ratings')) {
-            $data['disable_ratings'] = true;
-        }
-
         if ($request->hasFile('coverPhoto')) {
             $file = $request->file('coverPhoto');
             $data['coverPhoto'] = $file->hashName();
@@ -99,6 +92,15 @@ class BookController extends Controller
         }
 
         $book = Book::create($data);
+
+        if ($request->has('disable_comments')) {
+            $book['disable_comments'] = true;
+        }
+
+        if ($request->has('disable_ratings')) {
+            $book['disable_ratings'] = true;
+        }
+
         $book->save();
         $book->owners()->attach(Auth::user());
         $request->session()->flash('book_created', true);
@@ -116,8 +118,9 @@ class BookController extends Controller
         $type = mime_content_type('storage/contents/'. $book->content);
         return view('books.read', compact('book', 'type'));
     }
+
     /**
-     * Downloads the specific resource from the Storage
+     * Downloads the book  from the Storage
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -131,6 +134,12 @@ class BookController extends Controller
         return Storage::disk('public')->download('contents/' . $book['content']);
     }
 
+    /**
+     * Adds the specified book to the user's owned books list
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function addToOwnedBooks($id)
     {
         $book = Book::find($id);

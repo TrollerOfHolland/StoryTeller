@@ -47,9 +47,10 @@ class LoginController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
+        $remember_me = $request->has('remember') ? true : false;
 
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember_me)) {
             // Success
             return redirect()->intended('dashboard');
         } else {

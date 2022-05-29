@@ -2,20 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Story>
  */
-class BookFactory extends Factory
+class StoryFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Book::class;
     /**
      * Define the model's default state.
      *
@@ -29,7 +22,6 @@ class BookFactory extends Factory
             'ageLimit' => $this->faker->boolean(),
             'rating' => $this->faker->randomFloat(0,1,5),
             'numOfRates' => $this->faker->randomDigitNotNull(),
-            'content' => $this->faker->word() . '.txt',
         ];
     }
 }

@@ -21,7 +21,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Nem megfelelő e-mail címet adott meg!</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -35,7 +35,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>A jelszónak legalább 8 karakter hosszúnak kell lennie vagy nem megfelelő a jelszó megerősítése</strong>
                                     </span>
                                 @enderror
                             </div>

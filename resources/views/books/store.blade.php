@@ -83,10 +83,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                        </div>
-                    </div>
-                    <br><button type="submit" class="button">Feltöltés</button>
-                    </form>
+                                <br><button type="submit" class="button">Létrehozás</button>
+                            </form>
                 </div>
             </div>
         </div>

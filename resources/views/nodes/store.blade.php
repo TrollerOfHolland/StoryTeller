@@ -37,10 +37,16 @@
                                         @if ($node->parent_id != null)
                                             <label for="content" class="label">Cselekmény</label>
                                             <textarea rows="8" name="content" id="content" class="content">{{ $node->content }}</textarea>
+                                            @error('content')
+                                                <p class="text-red-500">{{ $message }}</p>
+                                            @enderror
                                         @endif
                                     @else
                                         <label for="content" class="label">Cselekmény</label>
                                         <textarea rows="8" name="content" id="content" class="content"></textarea>
+                                        @error('content')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     @endif
                                 </div>
                                 <div class="mb-5">

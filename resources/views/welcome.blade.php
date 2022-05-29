@@ -48,7 +48,7 @@
             </div>
         @endif
         <div class="extras">
-            <a href="https://github.com/szodom/StoryTeller/blob/main/README.md">Dokumentáció</a>
+            <a href="https://github.com/DominikSzol/StoryTeller/blob/main/README.md">Dokumentáció</a>
             <a href="{{ url('/gyik') }}">GyIK</a>
             <a href="https://github.com/DominikSzol/StoryTeller">GitHub</a>
         </div>
